@@ -1,0 +1,6 @@
+# Notas
+
+Instalar:
+```
+npm install
+```
