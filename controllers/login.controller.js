@@ -1,8 +1,11 @@
 const { request, response } = require( 'express' );
 const bcrypt = require( 'bcryptjs' );
 
-const User = require( '../models/user.model' );
+// Helpers
 const { generateJWT } = require( '../helpers/generate-jwt.helper' );
+
+// Models
+const User = require( '../models/user.model' );
 
 const login = async( req = request, res = response ) => {
   const { name, password } = req.body;
@@ -13,14 +16,14 @@ const login = async( req = request, res = response ) => {
 
     if ( !user ) {
       return res.status( 400 ).json({
-        msg: 'Usuario o contraseña incorrectos (usuario)'
+        msg: 'Usuario o contraseña incorrectos'
       });
     }
     
     // If the user is active
     if ( !user.status ) {
       return res.status( 400 ).json({
-        msg: 'Usuario o contraseña incorrectos (estado)'
+        msg: 'Usuario o contraseña incorrectos'
       });
     }
 
@@ -29,7 +32,7 @@ const login = async( req = request, res = response ) => {
 
     if ( !validPassword ) {
       return res.status( 400 ).json({
-        msg: 'Usuario o contraseña incorrectos (password)'
+        msg: 'Usuario o contraseña incorrectos'
       });
     }
 

@@ -1,5 +1,7 @@
 const { request, response } = require( 'express' );
 const bcrypt = require( 'bcryptjs' );
+
+// Models
 const User = require( '../models/user.model' );
 
 
@@ -73,8 +75,7 @@ const deleteUser = async( req = request, res = response ) => {
 
   res.json({
     ok: true,
-    user,
-    authenticatedUser
+    user
   });
 }
 

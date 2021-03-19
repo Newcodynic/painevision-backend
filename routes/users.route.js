@@ -5,8 +5,11 @@ const { check } = require( 'express-validator' );
 const { validRole, validName, validId } = require( '../helpers/db-validators.helper' );
 
 // Middlewares
-const { validateJWT } = require('../middlewares/validate-jwt.middleware');
-const { fieldValidator } = require( '../middlewares/validate.middleware' );
+const { 
+  fieldValidator, 
+  validateJWT, 
+  validateAdminRole 
+} = require( '../middlewares' );
 
 // Controllers
 const {
@@ -40,6 +43,7 @@ router.patch( '/', patchUser );
 
 router.delete( '/:id', [
   validateJWT,
+  validateAdminRole,
   check( 'id', 'No es un ID válido' ).isMongoId(),
   check( 'id' ).custom( validId ),
   fieldValidator

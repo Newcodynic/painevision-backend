@@ -1,3 +1,4 @@
+// Models
 const User = require( '../models/user.model' );
 const Role = require( '../models/role.model' );
 
