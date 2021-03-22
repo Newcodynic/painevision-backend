@@ -1,5 +1,6 @@
 const { request, response } = require( 'express' );
 
+// Valid ADMIN_ROLE
 const validateAdminRole = async( req = request, res = response ,next ) => {
   if ( !req.user ) {
     return res.status( 500 ).json({
@@ -18,6 +19,8 @@ const validateAdminRole = async( req = request, res = response ,next ) => {
   next();
 }
 
+
+// Exports
 module.exports = {
   validateAdminRole
 }

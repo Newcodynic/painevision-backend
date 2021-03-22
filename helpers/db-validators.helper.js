@@ -1,7 +1,12 @@
 // Models
-const User = require( '../models/user.model' );
-const Role = require( '../models/role.model' );
+const { 
+  News, 
+  Program,
+  Role, 
+  User 
+} = require('../models');
 
+// Validate role
 const validRole = async( role = '' ) => {
   const roleExists = await Role.findOne({ role });  
 
@@ -10,6 +15,7 @@ const validRole = async( role = '' ) => {
   }
 }
 
+// Validate name
 const validName = async( name = '' ) => {
   const nameExists = await User.findOne({ name });  
 
@@ -18,6 +24,7 @@ const validName = async( name = '' ) => {
   }
 }
 
+// Validate Id
 const validId = async( id ) => {
   const userExists = await User.findById( id );  
 
@@ -26,8 +33,30 @@ const validId = async( id ) => {
   }
 }
 
+// Validate News
+const validNews = async( id ) => {
+  const newsExists = await News.findById( id );  
+
+  if ( !newsExists ) {
+    throw new Error( `No existe una noticia con el id ${ id }` );
+  }
+}
+
+// Validate News
+const validProgram = async( id ) => {
+  const programExists = await Program.findById( id );  
+
+  if ( !programExists ) {
+    throw new Error( `No existe un programa con el id ${ id }` );
+  }
+}
+
+
+// Exports
 module.exports = {
   validRole,
   validName,
-  validId
+  validNews,
+  validId,
+  validProgram
 }

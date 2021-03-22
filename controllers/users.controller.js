@@ -4,7 +4,7 @@ const bcrypt = require( 'bcryptjs' );
 // Models
 const User = require( '../models/user.model' );
 
-
+// Get paginated users
 const getUsers = async( req = request, res = response ) => {
   const { limit = 5, from = 0 } = req.query;
   const query = { status: true }
@@ -17,14 +17,13 @@ const getUsers = async( req = request, res = response ) => {
   ]);
 
   res.json({
-    ok: true,
     total,
     users
   });
 }
 
+// Create an user
 const postUser = async( req = request, res = response ) => {
-
   const { name, password, role } = req.body;
   const user = new User({ name, password, role });
 
@@ -36,11 +35,11 @@ const postUser = async( req = request, res = response ) => {
   await user.save();
 
   res.json({
-    ok: true,
     user
   });
 }
 
+// Update an user
 const putUser = async( req = request, res = response ) => {
   const { id } = req.params;
   const { _id, password, name, ...resto } = req.body;
@@ -55,18 +54,11 @@ const putUser = async( req = request, res = response ) => {
   const user = await User.findByIdAndUpdate( id, resto );
 
   res.json({
-    ok: true,
     user
   });
 }
 
-const patchUser = ( req = request, res = response ) => {
-  res.json({
-    ok: true,
-    msg: 'patch API'
-  });
-}
-
+// Delete an user
 const deleteUser = async( req = request, res = response ) => {
   const { id } = req.params;
 
@@ -74,15 +66,15 @@ const deleteUser = async( req = request, res = response ) => {
   const authenticatedUser = req.user;
 
   res.json({
-    ok: true,
     user
   });
 }
 
+
+// Exports
 module.exports = {
   getUsers,
   postUser,
   putUser,
-  patchUser,
   deleteUser
 }

@@ -1,5 +1,6 @@
 const mongoose = require( 'mongoose' );
 
+// Connect to MongoDB
 const dbConnection = async() => {
   try {
     await mongoose.connect( process.env.MONGODB_CNN, {
@@ -18,6 +19,8 @@ const dbConnection = async() => {
 
 }
 
+
+// Exports
 module.exports = {
   dbConnection
 }

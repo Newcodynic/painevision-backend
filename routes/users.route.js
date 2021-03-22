@@ -22,8 +22,10 @@ const {
 
 const router = Router();
 
+// Get paginated users
 router.get( '/', getUsers );
 
+// Create an user
 router.post( '/',[
   check( 'name', 'El nombre es obligatorio' ).not().isEmpty(),
   check( 'password', 'La contraseña es obligatoria y debe contener al menos 6 carácteres' ).isLength({ min: 6 }),
@@ -32,6 +34,7 @@ router.post( '/',[
   fieldValidator
 ], postUser );
 
+// Update an user
 router.put( '/:id', [
   check( 'id', 'No es un ID válido' ).isMongoId(),
   check( 'id' ).custom( validId ),
@@ -39,8 +42,7 @@ router.put( '/:id', [
   fieldValidator
 ], putUser );
 
-router.patch( '/', patchUser );
-
+// Delete an user
 router.delete( '/:id', [
   validateJWT,
   validateAdminRole,
@@ -49,5 +51,6 @@ router.delete( '/:id', [
   fieldValidator
 ], deleteUser );
 
+// Exports
 module.exports =  router;
  

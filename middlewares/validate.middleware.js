@@ -1,6 +1,7 @@
 const { request, response } = require( 'express' );
 const { validationResult } = require( 'express-validator' );
 
+// Field Validator
 const fieldValidator = ( req = request, res = response, next ) => {
   const errors = validationResult( req );
 
@@ -11,6 +12,8 @@ const fieldValidator = ( req = request, res = response, next ) => {
   next();
 }
 
+
+// Exports
 module.exports = {
   fieldValidator
 }

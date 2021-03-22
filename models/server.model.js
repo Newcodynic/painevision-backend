@@ -10,8 +10,12 @@ class Server {
     this.port = process.env.PORT;
 
     // Route Paths
-    this.usrPath = '/api/users';
-    this.authPath = '/api/auth';
+    this.paths = {
+      auth: '/api/auth',
+      news: '/api/news',
+      programs: '/api/programs',
+      users: '/api/users'
+    }
 
     // Connect to DB
     this.connectDB();
@@ -40,8 +44,10 @@ class Server {
   }
   
   routes() {
-    this.app.use( this.authPath, require( '../routes/auth.route' ) );
-    this.app.use( this.usrPath, require( '../routes/users.route' ) );
+    this.app.use( this.paths.auth, require( '../routes/auth.route' ) );
+    this.app.use( this.paths.news, require( '../routes/news.route' ) );
+    this.app.use( this.paths.programs, require( '../routes/program.route' ) );
+    this.app.use( this.paths.users, require( '../routes/users.route' ) );
   }
 
   listen() {
@@ -51,4 +57,6 @@ class Server {
   }
 }
 
+
+// Exports
 module.exports = Server;
