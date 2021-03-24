@@ -2,7 +2,10 @@ const { Router } = require( 'express' );
 const { check } = require( 'express-validator' );
 
 // Helpers
-const { validProgram } = require( '../helpers/db-validators.helper' ); 
+const { 
+  validProgram, 
+  validTitleP
+} = require( '../helpers/db-validators.helper' ); 
 
 // Middlewares
 const { 
@@ -36,6 +39,7 @@ router.get( '/:id', [
 router.post( '/', [
   validateJWT,
   check( 'title', 'El título es obligatorio' ).not().isEmpty(),
+  check( 'title' ).custom( validTitleP ),
   check( 'url', 'El url del video es obligatorio' ).not().isEmpty(),
   fieldValidator
 ], postProgram );
@@ -44,6 +48,7 @@ router.post( '/', [
 router.put( '/:id', [
   validateJWT,
   check( 'title', 'El título es obligatorio' ).not().isEmpty(),
+  check( 'title' ).custom( validTitleP ),
   check( 'url', 'El url del video es obligatorio' ).not().isEmpty(),
   check( 'id' ).custom( validProgram ),
   fieldValidator
@@ -52,7 +57,6 @@ router.put( '/:id', [
 // Delete a program
 router.delete( '/:id', [
   validateJWT,
-  validateAdminRole,
   check( 'id', 'No es us id de mongo válido' ).isMongoId(),  
   check( 'id' ).custom( validProgram ),
   fieldValidator

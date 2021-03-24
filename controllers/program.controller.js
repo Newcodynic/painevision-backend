@@ -45,7 +45,6 @@ const postProgram = async( req = request, res = response ) => {
       msg: `El programa con el título ${ programDB.title }, ya existe`
     });
   }
-  
 
   // Generate data to save
   const data = { 

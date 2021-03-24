@@ -33,6 +33,23 @@ const validId = async( id ) => {
   }
 }
 
+// Validate title
+const validTitleP = async( title = '' ) => {
+  const titleExists = await Program.findOne({ title });  
+
+  if ( titleExists ) {
+    throw new Error( `El título ${ title } ya existe` );
+  }
+}
+
+const validTitleN = async( title = '' ) => {
+  const titleExists = await News.findOne({ title });  
+
+  if ( titleExists ) {
+    throw new Error( `El título ${ title } ya existe` );
+  }
+}
+
 // Validate News
 const validNews = async( id ) => {
   const newsExists = await News.findById( id );  
@@ -50,6 +67,17 @@ const validProgram = async( id ) => {
     throw new Error( `No existe un programa con el id ${ id }` );
   }
 }
+ 
+// validate Collections
+const allowedCollections = ( collection = '', collections = [] ) => {
+  const include = collections.includes( collection );
+
+  if ( !include ) {
+    throw new Error( `La colección ${ collection } no es permitida` );
+  }
+
+  return true;
+}
 
 
 // Exports
@@ -57,6 +85,9 @@ module.exports = {
   validRole,
   validName,
   validNews,
+  validTitleP,
+  validTitleN,
   validId,
-  validProgram
+  validProgram,
+  allowedCollections
 }

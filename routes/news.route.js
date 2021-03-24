@@ -2,12 +2,11 @@ const { Router } = require( 'express' );
 const { check } = require( 'express-validator' );
 
 // Helpers
-const { validNews } = require( '../helpers/db-validators.helper' );
+const { validNews, validTitleN } = require( '../helpers/db-validators.helper' );
 
 // Middlewares
 const { 
   validateJWT, 
-  validateAdminRole,
   fieldValidator 
 } = require('../middlewares');
 
@@ -33,6 +32,7 @@ router.get( '/:id', [
 router.post( '/', [ 
   validateJWT,
   check( 'title', 'El título es obligatorio' ).not().isEmpty(),
+  check( 'title' ).custom( validTitleN ),
   check( 'body', 'El cuerpo de la noticia es obligatorio' ).not().isEmpty(),
   fieldValidator
 ], postNews );
@@ -40,6 +40,7 @@ router.post( '/', [
 router.put( '/:id', [
   validateJWT,
   check( 'title', 'El título de la noticia el obligatorio' ).not().isEmpty(),
+  check( 'title' ).custom( validTitleN ),
   check( 'body', 'El cuerpo de la noticia es obligatorio' ).not().isEmpty(),
   check( 'id' ).custom( validNews ),
   fieldValidator
@@ -47,7 +48,6 @@ router.put( '/:id', [
 
 router.delete( '/:id', [
   validateJWT,
-  validateAdminRole,
   check( 'id', 'No es un id de mongo válido' ).isMongoId(),
   check( 'id' ).custom( validNews ),
   fieldValidator

@@ -34,4 +34,6 @@ NewsSchema.methods.toJSON = function() {
   return data;
 }
 
+
+// Exports
 module.exports = model( 'News', NewsSchema ); 

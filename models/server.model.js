@@ -1,5 +1,6 @@
 const express = require( 'express' );
 const cors = require( 'cors' );
+const fileUpload = require( 'express-fileupload' );
 
 // Database
 const { dbConnection } = require( '../database/config.db' );
@@ -11,10 +12,11 @@ class Server {
 
     // Route Paths
     this.paths = {
-      auth: '/api/auth',
-      news: '/api/news',
+      auth:     '/api/auth',
+      news:     '/api/news',
       programs: '/api/programs',
-      users: '/api/users'
+      uploads:  '/api/uploads',
+      users:    '/api/users'
     }
 
     // Connect to DB
@@ -41,12 +43,20 @@ class Server {
     
     // Public
     this.app.use( express.static( 'public' ) );
+
+    // Fileupload
+    this.app.use( fileUpload({
+      useTempFiles : true,
+      tempFileDir : '/tmp/',
+      createParentPath: true
+    }));
   }
   
   routes() {
     this.app.use( this.paths.auth, require( '../routes/auth.route' ) );
     this.app.use( this.paths.news, require( '../routes/news.route' ) );
     this.app.use( this.paths.programs, require( '../routes/program.route' ) );
+    this.app.use( this.paths.uploads, require( '../routes/uploads.route' ) );
     this.app.use( this.paths.users, require( '../routes/users.route' ) );
   }
 
