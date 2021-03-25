@@ -1,4 +1,7 @@
+// Express
 const { request, response } = require( 'express' );
+
+// Bcrypt
 const bcrypt = require( 'bcryptjs' );
 
 // Helpers
@@ -6,6 +9,7 @@ const { generateJWT } = require( '../helpers/generate-jwt.helper' );
 
 // Models
 const { User } = require( '../models' );
+
 
 // Login
 const login = async( req = request, res = response ) => {

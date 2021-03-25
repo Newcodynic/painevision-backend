@@ -11,6 +11,6 @@ module.exports = {
   News,
   Program,
   Role,
-  Server,
+  ...Server,
   User
 }

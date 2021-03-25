@@ -1,7 +1,9 @@
+// Express
 const { request, response } = require( 'express' );
 
 // Models
 const { News } = require( '../models' );
+
 
 // Get paginated news
 const getNews = async( req = request, res = response ) => {

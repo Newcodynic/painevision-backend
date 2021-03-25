@@ -1,8 +1,12 @@
+// Express
 const { request, response } = require( 'express' );
+
+// JWT
 const jwt = require( 'jsonwebtoken' );
 
 // Models
 const User = require( '../models/user.model' );
+
 
 // Validate JWT
 const validateJWT = async( req = request, res = response, next ) => {

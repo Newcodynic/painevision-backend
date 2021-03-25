@@ -1,3 +1,4 @@
+// Express
 const { Router } = require( 'express' );
 const { check } = require( 'express-validator' );
 
@@ -5,20 +6,31 @@ const { check } = require( 'express-validator' );
 const { allowedCollections } = require('../helpers');
 
 // Middlewares
-const { fieldValidator } = require('../middlewares');
+const { fieldValidator, validateFile } = require('../middlewares');
 
 // Controllers
-const { uploadFiles, imageUpdate } = require( '../controllers/uploads.controller' );
+const { 
+  uploadFiles, 
+  imageUpdateCloud,
+  showPicture 
+} = require( '../controllers/uploads.controller' );
 
 const router = Router();
 
-router.post( '/', uploadFiles );
-
-router.put( '/:collection/:id', [
+router.get( '/:collection/:id', [
   check( 'id', 'No es us id de mongo válido' ).isMongoId(),  
   check( 'collection' ).custom( c => allowedCollections( c, [ 'users', 'programs', 'news' ] ) ),
   fieldValidator
-], imageUpdate ); 
+], showPicture ); 
+
+router.post( '/', validateFile, uploadFiles );
+
+router.put( '/:collection/:id', [
+  validateFile,
+  check( 'id', 'No es us id de mongo válido' ).isMongoId(),  
+  check( 'collection' ).custom( c => allowedCollections( c, [ 'users', 'programs', 'news' ] ) ),
+  fieldValidator
+], imageUpdateCloud ); 
 
 
 // Exports
