@@ -50,6 +50,7 @@ router.put( '/:id', [
   check( 'title', 'El título es obligatorio' ).not().isEmpty(),
   check( 'title' ).custom( validTitleP ),
   check( 'url', 'El url del video es obligatorio' ).not().isEmpty(),
+  check( 'id', 'No es us id de mongo válido' ).isMongoId(),  
   check( 'id' ).custom( validProgram ),
   fieldValidator
 ], putProgram );

@@ -1,15 +1,15 @@
 // Mongoose
 const { Schema, model } = require( 'mongoose' );
 
-const NewsSchema = Schema({
-  title: {
+const OpinionSchema = Schema({
+  name: {
     type: String,
-    required: [ true, 'El título es obligatorio' ],
+    required: [ true, 'El nombre es obligatorio' ],
     unique: true
   },
-  body: {
+  testi: {
     type: String,
-    required: [ true, 'El cuerpo de la noticia es obligatorio' ]
+    required: [ true, 'La opinión es obligatorio' ]
   },
   date: {
     type: Date,
@@ -30,11 +30,12 @@ const NewsSchema = Schema({
   }
 });
 
-NewsSchema.methods.toJSON = function() {
+OpinionSchema.methods.toJSON = function() {
   const { __v, status, ...data } = this.toObject();
   return data;
 }
 
 
 // Exports
-module.exports = model( 'News', NewsSchema ); 
+module.exports = model( 'Opinion', OpinionSchema ); 
+

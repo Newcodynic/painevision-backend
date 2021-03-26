@@ -3,7 +3,8 @@ const {
   News, 
   Program,
   Role, 
-  User 
+  User, 
+  Opinion
 } = require('../models');
 
 // Validate role
@@ -50,6 +51,15 @@ const validTitleN = async( title = '' ) => {
   }
 }
 
+// Validate Name Opinion
+const validNameOp = async( name = '' ) => {
+  const opiExists = await Opinion.findOne({ name });  
+
+  if ( opiExists ) {
+    throw new Error( `${ name } ya ha opinado` );
+  }
+}
+
 // Validate News
 const validNews = async( id ) => {
   const newsExists = await News.findById( id );  
@@ -59,12 +69,21 @@ const validNews = async( id ) => {
   }
 }
 
-// Validate News
+// Validate Program
 const validProgram = async( id ) => {
   const programExists = await Program.findById( id );  
 
   if ( !programExists ) {
     throw new Error( `No existe un programa con el id ${ id }` );
+  }
+}
+ 
+// Validate Opinion
+const validOpinion = async( id ) => {
+  const opínionExists = await Opinion.findById( id );  
+
+  if ( !opínionExists ) {
+    throw new Error( `No existe una opinión con el id ${ id }` );
   }
 }
  
@@ -85,9 +104,11 @@ module.exports = {
   validRole,
   validName,
   validNews,
+  validOpinion,
   validTitleP,
   validTitleN,
   validId,
   validProgram,
+  validNameOp,
   allowedCollections
 }

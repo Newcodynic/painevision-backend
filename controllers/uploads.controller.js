@@ -15,7 +15,8 @@ const { fileUpload } = require( '../helpers' );
 const { 
   User, 
   News, 
-  Program 
+  Program, 
+  Opinion
 } = require( '../models' );
 
 
@@ -134,6 +135,16 @@ const imageUpdateCloud = async( req = request, res = response ) => {
     
       break;
 
+    case 'opinions':
+      model = await Opinion.findById( id );
+      if ( !model ) {
+        return res.status( 400 ).json({
+          msg: `No existe un testimonio con el id ${ id }`
+        });
+      }
+    
+      break;
+
     default:
       return res.status( 500 ).json({
         msg: 'Hable con el administrador'
@@ -192,6 +203,16 @@ const showPicture = async( req = request, res = response ) => {
       if ( !model ) {
         return res.status( 400 ).json({
           msg: `No existe un programa con el id ${ id }`
+        });
+      }
+    
+      break;
+
+    case 'opinions':
+      model = await Opinion.findById( id );
+      if ( !model ) {
+        return res.status( 400 ).json({
+          msg: `No existe un testimonio con el id ${ id }`
         });
       }
     

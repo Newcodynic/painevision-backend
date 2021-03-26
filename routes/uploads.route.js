@@ -19,7 +19,7 @@ const router = Router();
 
 router.get( '/:collection/:id', [
   check( 'id', 'No es us id de mongo válido' ).isMongoId(),  
-  check( 'collection' ).custom( c => allowedCollections( c, [ 'users', 'programs', 'news' ] ) ),
+  check( 'collection' ).custom( c => allowedCollections( c, [ 'users', 'programs', 'news', 'opinions' ] ) ),
   fieldValidator
 ], showPicture ); 
 
@@ -28,7 +28,7 @@ router.post( '/', validateFile, uploadFiles );
 router.put( '/:collection/:id', [
   validateFile,
   check( 'id', 'No es us id de mongo válido' ).isMongoId(),  
-  check( 'collection' ).custom( c => allowedCollections( c, [ 'users', 'programs', 'news' ] ) ),
+  check( 'collection' ).custom( c => allowedCollections( c, [ 'users', 'programs', 'news', 'opinions' ] ) ),
   fieldValidator
 ], imageUpdateCloud ); 
 
